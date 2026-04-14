@@ -27,7 +27,7 @@
 
 ## Quick Start
 
-The `aggagent` package is available on PyPI. If you already have K agent trajectories and want to aggregate them, this is all you need:
+The `aggagent` package is available on PyPI. If you already have multiple agent trajectories and want to aggregate them, this is all you need:
 
 ```bash
 pip install aggagent
