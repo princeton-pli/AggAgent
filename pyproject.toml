@@ -1,0 +1,52 @@
+[project]
+name = "aggagent"
+authors = [
+    {name = "Yoonsang Lee", email = "yoonsang@cs.princeton.edu"},
+    {name = "Howard Yen", email = "hyen@cs.princeton.edu"},
+    {name = "Xi Ye", email = "xi.ye@princeton.edu"},
+    {name = "Danqi Chen", email = "danqic@cs.princeton.edu"}
+]
+version = "0.1.0"
+description = "Agentic Aggregation for Parallel Scaling of Long-Horizon Agentic Tasks"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "litellm",
+    "qwen-agent[python-executor]",
+    "rouge-score",
+    "soundfile",
+]
+
+[project.urls]
+Repository = "https://github.com/princeton-pli/AggAgent"
+
+[project.optional-dependencies]
+rollout = [
+    "accelerate",
+    "crawl4ai",
+    "datasets",
+    "faiss-cpu",
+    "fastapi",
+    "json5",
+    "peft",
+    "qwen-omni-utils",
+    "requests",
+    "tevatron",
+    "transformers",
+    "vllm",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["aggagent"]
+
+[tool.uv]
+override-dependencies = [
+    "transformers @ git+https://github.com/huggingface/transformers.git",
+]
+
+[tool.uv.sources]
+tevatron = { git = "https://github.com/texttron/tevatron.git", rev = "main" }
