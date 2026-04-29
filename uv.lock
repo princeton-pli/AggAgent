@@ -49,8 +49,9 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "litellm" },
-    { name = "qwen-agent" },
+    { name = "qwen-agent", extra = ["python-executor"] },
     { name = "rouge-score" },
+    { name = "soundfile" },
 ]
 
 [package.optional-dependencies]
@@ -65,7 +66,6 @@ rollout = [
     { name = "peft" },
     { name = "qwen-omni-utils" },
     { name = "requests" },
-    { name = "soundfile" },
     { name = "tevatron" },
     { name = "transformers" },
     { name = "vllm" },
@@ -81,11 +81,11 @@ requires-dist = [
     { name = "json5", marker = "extra == 'rollout'" },
     { name = "litellm" },
     { name = "peft", marker = "extra == 'rollout'" },
-    { name = "qwen-agent" },
+    { name = "qwen-agent", extras = ["python-executor"] },
     { name = "qwen-omni-utils", marker = "extra == 'rollout'" },
     { name = "requests", marker = "extra == 'rollout'" },
     { name = "rouge-score" },
-    { name = "soundfile", marker = "extra == 'rollout'" },
+    { name = "soundfile" },
     { name = "tevatron", marker = "extra == 'rollout'", git = "https://github.com/texttron/tevatron.git?rev=main" },
     { name = "transformers", marker = "extra == 'rollout'" },
     { name = "vllm", marker = "extra == 'rollout'" },
@@ -3284,6 +3284,15 @@ wheels = [
 ]
 
 [[package]]
+name = "pebble"
+version = "5.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/66/3b/7debef984e227a70798963cf2e5ea90882f62bca659b33cbd421a453abd1/pebble-5.2.0.tar.gz", hash = "sha256:8e0a5f6a1cfdd0ac1bfc4a789e20d2b4b895de976e547d23b7de23b71ef39b34", size = 39811, upload-time = "2026-01-25T12:05:11.422Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b5/de/1cce5274efcb921484998864820f2ba41679ea472daef748a7bc03fc0bb7/pebble-5.2.0-py3-none-any.whl", hash = "sha256:6237a792a78524648857ec6d2dae069c91a45bdef18daf957078a56e2dd8e0a8", size = 34881, upload-time = "2026-01-25T12:05:09.714Z" },
+]
+
+[[package]]
 name = "peft"
 version = "0.18.1"
 source = { registry = "https://pypi.org/simple" }
@@ -4124,6 +4133,17 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/0a/e2/cfe83936675f4cf098c569d9aba037168393d8849ef08d4970770ef50ec5/qwen_agent-0.0.34.tar.gz", hash = "sha256:ee47a31bf0e75c3ed870fdd903c6d348d68b73ca6e2b9f3d99b55e792d0a4b2c", size = 7061049, upload-time = "2026-02-16T08:18:45.777Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b7/c6/2d1bb8c679dd89565a56f4edc99ecb690e2c770ccaf403f8872e3cede3f3/qwen_agent-0.0.34-py3-none-any.whl", hash = "sha256:195264f9c1880f60f23781805d69bb3ffadfe944b7b70358f7115a0dd4bc59b7", size = 7136923, upload-time = "2026-02-16T08:18:42.259Z" },
+]
+
+[package.optional-dependencies]
+python-executor = [
+    { name = "multiprocess" },
+    { name = "numpy" },
+    { name = "pebble" },
+    { name = "python-dateutil" },
+    { name = "scipy" },
+    { name = "sympy" },
+    { name = "timeout-decorator" },
 ]
 
 [[package]]
@@ -5021,6 +5041,12 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/ab/0d/c1ad6f4016a3968c048545f5d9b8ffebf577774b2ede3e2e352553b685fe/tiktoken-0.12.0-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:5edb8743b88d5be814b1a8a8854494719080c28faaa1ccbef02e87354fe71ef0", size = 1253706, upload-time = "2025-10-06T20:22:33.385Z" },
     { url = "https://files.pythonhosted.org/packages/af/df/c7891ef9d2712ad774777271d39fdef63941ffba0a9d59b7ad1fd2765e57/tiktoken-0.12.0-cp314-cp314t-win_amd64.whl", hash = "sha256:f61c0aea5565ac82e2ec50a05e02a6c44734e91b51c10510b084ea1b8e633a71", size = 920667, upload-time = "2025-10-06T20:22:34.444Z" },
 ]
+
+[[package]]
+name = "timeout-decorator"
+version = "0.5.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/80/f8/0802dd14c58b5d3d72bb9caa4315535f58787a1dc50b81bbbcaaa15451be/timeout-decorator-0.5.0.tar.gz", hash = "sha256:6a2f2f58db1c5b24a2cc79de6345760377ad8bdc13813f5265f6c3e63d16b3d7", size = 4754, upload-time = "2020-11-15T00:53:06.506Z" }
 
 [[package]]
 name = "tokenizers"

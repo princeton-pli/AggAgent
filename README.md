@@ -3,6 +3,7 @@
 <p align="center">
   <a href="https://arxiv.org/abs/2604.11753"><img src="https://img.shields.io/badge/arXiv-paper-b31b1b" alt="arXiv"></a>
   <a href="https://pypi.org/project/aggagent/"><img src="https://img.shields.io/pypi/v/aggagent?color=blue" alt="PyPI"></a>
+  <a href="https://huggingface.co/collections/yoonsanglee/aggagent"><img src="https://img.shields.io/badge/🤗-Datasets-yellow" alt="HuggingFace"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-green" alt="License"></a>
   <img src="https://img.shields.io/badge/Claude_Code_Skill-beta-blueviolet" alt="Claude Code Skill">
 </p>
@@ -18,6 +19,7 @@
 - [Quick Start](#quick-start)
 - [Installation](#installation)
 - [Rollout](#rollout)
+  - [Use our published rollouts](#use-our-published-rollouts)
 - [Aggregation](#aggregation)
 - [AggAgent Package](#aggagent-package)
 - [Claude Code Skill](#claude-code-skill-beta)
@@ -103,6 +105,33 @@ SERPER_KEY_ID=...           # for web search (Google Serper)
 ## Rollout
 
 The rollout stage runs N independent ReAct agent trajectories over a benchmark dataset. Each trajectory uses web search and page-visit tools to gather evidence and arrive at an answer.
+
+### Use our published rollouts
+
+If you only need to reproduce or build on top of the **base ReAct trajectories** from the paper, skip rollout generation and download them directly. We release `roll_out_count = 8` parallel rollouts per benchmark instance for three backbones: `GLM-4.7-Flash`, `MiniMax-M2.5`, `Qwen3.5-122B-A10B`.
+
+| Source | Coverage |
+|---|---|
+| 🤗 [`yoonsanglee/aggagent`](https://huggingface.co/collections/yoonsanglee/aggagent) collection | DeepSearchQA, HLE, HealthBench, ResearchRubrics |
+| Google Drive [`aggagent-browsecomp-react.tar`](https://drive.google.com/file/d/1c4M0apGl-qXHt1ErDfvoI_tiTFghuZcZ/view?usp=sharing) | BrowseComp, BrowseComp-Plus |
+
+> BrowseComp / BrowseComp-Plus are distributed as a tar via Google Drive rather than Hugging Face to limit web-crawl contamination of these evals.
+
+The published format is flat parquet (one row per rollout). The aggregation pipeline expects the on-disk layout `output/rollout/<MODEL>/<DATASET>/iter{1..N}/<question>.json`, so use `scripts/hf_to_rollout.py` to materialize that:
+
+```bash
+# From Hugging Face
+python scripts/hf_to_rollout.py \
+  --repo yoonsanglee/deepsearchqa-react \
+  --model Qwen3.5-122B-A10B \
+  --out output/rollout/Qwen3.5-122B-A10B/deepsearchqa
+
+# From a local parquet (e.g. extracted from the BrowseComp tar)
+python scripts/hf_to_rollout.py path/to/Qwen3.5-122B-A10B.parquet \
+  --out output/rollout/Qwen3.5-122B-A10B/browsecomp
+```
+
+After conversion you can run [Aggregation](#aggregation) directly on the resulting directory.
 
 ### Download datasets
 
